@@ -3,8 +3,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import *
 
-# initialize instance of WSGI application
-# act as a central registry for the view functions, URL rules, template configs
 app = Flask(__name__)
 
 app.debug = True
@@ -28,12 +26,15 @@ def login():
     )
 
 
-@app.route("/home", methods=["GET"])
+@app.route("/home", methods=["GET","POST"])
 def home():
     ## home page
     pseudo = player.pseudo
-    global game_session
-    game_session = GameSession(player)
+    if request.method == "POST":
+        global game_session
+        game_session = GameSession(player)
+        game_session.update()
+        return redirect(url_for('get_question'))
     return render_template(
         'home.html',
         pseudo=pseudo,
@@ -42,10 +43,11 @@ def home():
 
 @app.route("/question")
 def get_question():
-    game_session.update_questions_count()
+    question = game_session.current_question
     return render_template(
         'question.html',
         number=game_session.questions_answered,
+        question_body=question.body
     )
 
 

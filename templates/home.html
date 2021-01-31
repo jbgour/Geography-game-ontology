@@ -6,6 +6,8 @@
     </div>
 {% endblock %}
 
-<body>
-    <p><a href="{{ url_for('get_question') }}">Démarrer</a></p>
-</body>
+
+
+<form action="/home" method="POST">
+    <input type="submit" name="start_button" value="Démarrer">
+</form>

@@ -15,10 +15,7 @@ sparql.setQuery("""
 
 """)
 
-sparql.setReturnFormat(JSON)
-results = sparql.query().convert()
 
-print(results)
 
 sparql.setQuery("""
     SELECT DISTINCT ?placeName WHERE {
@@ -26,3 +23,7 @@ sparql.setQuery("""
     }
 
 """)
+sparql.setReturnFormat(JSON)
+results = sparql.query().convert()
+
+print(results)

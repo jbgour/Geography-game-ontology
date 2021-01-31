@@ -1,3 +1,6 @@
+from .question import Question
+
+
 class GameSession:
 
     def __init__(self, player):
@@ -7,7 +10,12 @@ class GameSession:
         self.player = player
         self.score = 0
         self.questions_answered = 0
-        self.questions_to_answer = 0
+        self.questions_to_answer = 10
+        self.current_question = None
+
+    def update(self):
+        self.update_question()
+        self.update_questions_count()
 
     def update_questions_count(self):
         """
@@ -15,6 +23,10 @@ class GameSession:
         """
         self.questions_answered += 1
         self.questions_to_answer -= 1
+
+    def update_question(self):
+        question = Question(body="Quelle est la capitale de la France")
+        self.current_question = question
 
     def update_score(self, question_type, is_correct_answer):
         """
