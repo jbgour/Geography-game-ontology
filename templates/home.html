@@ -1,0 +1,11 @@
+{% block content %}
+    <div class="container">
+        <h1>Bonjour {{ pseudo }}</h1>
+        <h2>Règles du jeu:</h2>
+        <p>Tu auras 10 questions, blablabla...</p>
+    </div>
+{% endblock %}
+
+<body>
+    <p><a href="{{ url_for('get_question') }}">Démarrer</a></p>
+</body>

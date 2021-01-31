@@ -1,4 +1,4 @@
-#Vision joueur:
+# Vision joueur:
 
 Question de geographie, choix Duo, Carré, Cash, type de questions:
 * Quelle est la capitale de tel pays?
@@ -11,7 +11,7 @@ Puis rentre sur une page, défilement de questions. on voit la question, on repo
 Au bout de 10 questions, le jeu est fini, on donne le score.
 On peut rejouer
 
-#Dans le back:
+# Dans le back:
 Les questions sont sous formes de template: exemple quel est la capitale de str(countrie)?
 A chaque load du jeu, on va demander via sparql de récupérer:
 * la liste des pays de l'onu
@@ -20,11 +20,11 @@ A chaque load du jeu, on va demander via sparql de récupérer:
 * leur président
 * order by nombre d'habitants (on suppose que pour les petits pays, les questions sont plus dificiles...)
 
-On stocke ça dans un pandas dataframe. 
+On créé tout ça au sein d'une ontologie.
 Justification de pourquoi on stocke rien en dur: ce sont des datas qui sont évolutives!
 
 
-#Fonctionnement du jeu:
+# Fonctionnement du jeu:
 pattern MVC:
 * Model: 
   * contient la classe country et ses attributs
