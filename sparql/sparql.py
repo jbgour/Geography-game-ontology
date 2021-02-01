@@ -44,7 +44,7 @@ class SparqlQueries :
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
             ?country  dbp:areaKm  ?area.
-            FILTER ( lang(?country) = 'fr')}
+           }
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
@@ -57,11 +57,11 @@ class SparqlQueries :
             PREFIX  dbp:  <http://dbpedia.org/property/>
             PREFIX  dct:  <http://purl.org/dc/terms/>
 
-            SELECT DISTINCT  *
+            SELECT DISTINCT ?country, ?currency
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
-            ?country  dbp:currencyCode  ?currency.
-             FILTER ( lang(?country) = 'fr')}
+            ?country  dbp:currency  ?currency.
+            }
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
@@ -77,7 +77,7 @@ class SparqlQueries :
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
               ?country dbo:populationTotalRanking ?ranking.
-               FILTER ( lang(?country) = 'fr')}
+               }
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
