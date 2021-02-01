@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 app.debug = True
 
+ontology_model = OntologyModel()
+
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -26,13 +28,13 @@ def login():
     )
 
 
-@app.route("/home", methods=["GET","POST"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
     ## home page
     pseudo = player.pseudo
     if request.method == "POST":
         global game_session
-        game_session = GameSession(player)
+        game_session = GameSession(player, ontology_model)
         game_session.update()
         return redirect(url_for('get_question'))
     return render_template(
@@ -41,13 +43,41 @@ def home():
     )
 
 
-@app.route("/question")
+@app.route("/question", methods=["GET", "POST"])
 def get_question():
     question = game_session.current_question
+    if request.method == "POST":
+        if request.form['question_button'] == 'Duo':
+            return redirect(url_for('get_question_duo'))
+        elif request.form['question_button'] == 'Carré':
+            return redirect(url_for('get_question_carre'))
+        elif request.form['question_button'] == 'Cash':
+            return redirect(url_for('get_question_cash'))
     return render_template(
         'question.html',
         number=game_session.questions_answered,
         question_body=question.body
+    )
+
+
+@app.route("/question/duo", methods=["GET", "POST"])
+def get_question_duo():
+    return render_template(
+        'question_duo.html',
+    )
+
+
+@app.route("/question/carre", methods=["GET", "POST"])
+def get_question_carre():
+    return render_template(
+        'question_carre.html',
+    )
+
+
+@app.route("/question/cash", methods=["GET", "POST"])
+def get_question_cash():
+    return render_template(
+        'question_cash.html',
     )
 
 
