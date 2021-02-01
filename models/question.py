@@ -24,7 +24,7 @@ class Question:
             self.wrong_answers = false_countries
 
 
-class QuestionDuo(Question):
+class QuestionDuo:
 
     def __init__(self, body, answers):
         super().__init__(self, body=body)
@@ -32,7 +32,7 @@ class QuestionDuo(Question):
         self.answer_1 = answers[1]
 
 
-class QuestionCarre(Question):
+class QuestionCarre:
     def __init__(self, body, answers):
         super().__init__(self, body=body)
         self.answer_0 = answers[0]
@@ -41,6 +41,6 @@ class QuestionCarre(Question):
         self.answer_3 = answers[3]
 
 
-class QuestionCash(Question):
+class QuestionCash:
     def __init__(self, body):
         super().__init__(self, body=body)

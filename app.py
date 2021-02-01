@@ -62,8 +62,11 @@ def get_question():
 
 @app.route("/question/duo", methods=["GET", "POST"])
 def get_question_duo():
+    question_duo = Question_Duo(game_session.current_question)
     return render_template(
         'question_duo.html',
+        number=game_session.questions_answered,
+        question_body=question.body
     )
 
 
@@ -71,13 +74,18 @@ def get_question_duo():
 def get_question_carre():
     return render_template(
         'question_carre.html',
+        number=game_session.questions_answered,
+        question_body=question.body
     )
 
 
 @app.route("/question/cash", methods=["GET", "POST"])
 def get_question_cash():
+    question_cash = game_session.current_question
     return render_template(
         'question_cash.html',
+        number=game_session.questions_answered,
+        question_body=question.body
     )
 
 
