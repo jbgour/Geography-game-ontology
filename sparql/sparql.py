@@ -1,7 +1,5 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-
-
 class SparqlQueries : 
     def __init__(self, sparql):
         self.sparql = sparql
@@ -45,13 +43,14 @@ class SparqlQueries :
             SELECT DISTINCT  *
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
-            ?country  dbp:areaKm  ?area }
+            ?country  dbp:areaKm  ?area.
+            FILTER ( lang(?country) = 'fr')}
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
     
         
-    def get_countries_wealth(self) :
+    def get_countries_currency(self) :
         self.sparql.setQuery("""
             PREFIX  dbo:  <http://dbpedia.org/ontology/>
             PREFIX  yago: <http://dbpedia.org/class/yago/>
@@ -61,7 +60,8 @@ class SparqlQueries :
             SELECT DISTINCT  *
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
-            ?country  dbp:currencyCode  ?currency}
+            ?country  dbp:currencyCode  ?currency.
+             FILTER ( lang(?country) = 'fr')}
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
@@ -76,7 +76,8 @@ class SparqlQueries :
             SELECT DISTINCT  *
             WHERE
             { ?country  a  <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>.
-              ?country dbo:populationTotalRanking ?ranking.}
+              ?country dbo:populationTotalRanking ?ranking.
+               FILTER ( lang(?country) = 'fr')}
             """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert() 
@@ -90,18 +91,19 @@ class SparqlQueries :
     def get_data_from_get_countries_area(self):
         return  [( d["country"]["value"].split('/')[-1], d["area"]["value"]) for d in self.get_countries_area()["results"]["bindings"]]
     
-    def get_data_from_get_countries_wealth(self):
-        return  [( d["country"]["value"].split('/')[-1], d["currency"]["value"]) for d in self.get_countries_wealth()["results"]["bindings"]]
+    def get_data_from_get_countries_currency(self):
+        return  [( d["country"]["value"].split('/')[-1], d["currency"]["value"]) for d in self.get_countries_currency()["results"]["bindings"]]
     
     def get_data_from_get_countries_population_ranking(self):
         return  [( d["country"]["value"].split('/')[-1], d["ranking"]["value"]) for d in self.get_countries_population_ranking()["results"]["bindings"]]
-        
-        
-sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-s = SparqlQueries(sparql)
- 
-#print(s.get_data_from_get_countries())
-#print(s.get_data_from_get_capitals_and_countries())
-#print(s.get_data_from_get_countries_area())
-# print(s.get_data_from_get_countries_wealth())
-#print(s.get_data_from_get_countries_population_ranking())
+
+      
+if __name__ == '__main__':
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+    s = SparqlQueries(sparql)
+    
+    #print(s.get_data_from_get_countries())
+    #print(s.get_data_from_get_capitals_and_countries())
+    # print(s.get_data_from_get_countries_area())
+    # print(s.get_data_from_get_countries_wealth())
+    # print(s.get_data_from_get_countries_population_ranking())
