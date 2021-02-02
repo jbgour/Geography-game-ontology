@@ -5,7 +5,7 @@ import sys, os
 
 class OntologyModel:
 
-    def __init__(self, quer):
+    def __init__(self, queries):
         self.queries = queries
         self.raw_data = self.get_sparql_data()
 
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     s = SparqlQueries(sparql)
     onto = OntologyModel(s)
-    #print(onto.raw_data[0])
+    print(onto.raw_data[0])
     
     
     

@@ -86,7 +86,7 @@ class SparqlQueries :
         return [d["countrylabel"]["value"] for d in self.get_countries()["results"]["bindings"]]
     
     def get_data_from_get_capitals_and_countries(self):
-        return  [(d["countrylabel"]["value"].split('/')[-1], d["capital"]["value"].split('/')[-1]) for d in self.get_capitals_and_countries()["results"]["bindings"]]
+        return  [(d["country"]["value"].split('/')[-1], d["capital"]["value"].split('/')[-1]) for d in self.get_capitals_and_countries()["results"]["bindings"]]
     
     def get_data_from_get_countries_area(self):
         return  [( d["country"]["value"].split('/')[-1], d["area"]["value"]) for d in self.get_countries_area()["results"]["bindings"]]
