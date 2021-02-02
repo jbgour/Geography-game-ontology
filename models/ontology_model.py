@@ -5,7 +5,7 @@ import sys, os
 
 class OntologyModel:
 
-    def __init__(self, queries):
+    def __init__(self, quer):
         self.queries = queries
         self.raw_data = get_sparql_data() #run le fichier de Thibault
 
@@ -19,9 +19,6 @@ class OntologyModel:
             #create country object
         return list of countries
 
-
-
-    ...
 
 
 
