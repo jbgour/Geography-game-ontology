@@ -25,12 +25,10 @@ class SparqlQueries :
             PREFIX dbo: <http://dbpedia.org/ontology/>
             PREFIX dbr: <http://dbpedia.org/resource/>
 
-            SELECT ?countrylabel ?capital
+            SELECT ?country ?capital
             WHERE {
             ?country a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>  .
             ?country dbp:capital ?capital.
-            ?country rdfs:label ?countrylabel .
-            FILTER ( lang(?countrylabel) = 'fr')
             } """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert()

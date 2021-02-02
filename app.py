@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.debug = True
 
 ontology_model = OntologyModel()
+get_ontology_data = GetOntologyData(ontology_model)
 
 
 @app.route("/", methods=["GET", "POST"])

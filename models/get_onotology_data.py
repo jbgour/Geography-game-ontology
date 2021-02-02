@@ -1,7 +1,8 @@
 
 class GetOntologyData:
 
-    def __init__(self):
+    def __init__(self, ontology_model):
+        self.ontology = ontology_model
         pass
 
 

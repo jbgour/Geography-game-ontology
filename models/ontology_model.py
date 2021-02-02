@@ -2,9 +2,10 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import random
 import sys, os
 
+
 class OntologyModel:
 
-    def __init__(self, queries):
+    def __init__(self, quer):
         self.queries = queries
         self.raw_data = self.get_sparql_data()
 
