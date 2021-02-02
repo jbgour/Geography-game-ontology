@@ -25,10 +25,12 @@ class SparqlQueries :
             PREFIX dbo: <http://dbpedia.org/ontology/>
             PREFIX dbr: <http://dbpedia.org/resource/>
 
-            SELECT ?country ?capital
+            SELECT ?countrylabel ?capital
             WHERE {
             ?country a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations>  .
             ?country dbp:capital ?capital.
+            ?country rdfs:label ?countrylabel .
+            FILTER ( lang(?countrylabel) = 'fr')
             } """)
         self.sparql.setReturnFormat(JSON)
         return self.sparql.query().convert()
@@ -103,7 +105,7 @@ if __name__ == '__main__':
     s = SparqlQueries(sparql)
     
     #print(s.get_data_from_get_countries())
-    #print(s.get_data_from_get_capitals_and_countries())
-    # print(s.get_data_from_get_countries_area())
-    # print(s.get_data_from_get_countries_wealth())
-    # print(s.get_data_from_get_countries_population_ranking())
+    print(s.get_data_from_get_capitals_and_countries())
+    #print(s.get_data_from_get_countries_area())
+    #print(s.get_data_from_get_countries_wealth())
+    #print(s.get_data_from_get_countries_population_ranking())
