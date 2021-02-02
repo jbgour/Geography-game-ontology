@@ -88,24 +88,24 @@ class SparqlQueries :
         return [d["countrylabel"]["value"] for d in self.get_countries()["results"]["bindings"]]
     
     def get_data_from_get_capitals_and_countries(self):
-        return  [(d["country"]["value"].split('/')[-1], d["capital"]["value"].split('/')[-1]) for d in self.get_capitals_and_countries()["results"]["bindings"]]
+        return  [(d["countrylabel"]["value"].split('/')[-1], d["capital"]["value"].split('/')[-1]) for d in self.get_capitals_and_countries()["results"]["bindings"]]
     
     def get_data_from_get_countries_area(self):
         return  [( d["country"]["value"].split('/')[-1], d["area"]["value"]) for d in self.get_countries_area()["results"]["bindings"]]
     
     def get_data_from_get_countries_currency(self):
-        return  [( d["country"]["value"].split('/')[-1], d["currency"]["value"]) for d in self.get_countries_currency()["results"]["bindings"]]
+        return  [( d["country"]["value"].split('/')[-1], d["currency"]["value"].split('/')[-1]) for d in self.get_countries_currency()["results"]["bindings"]]
     
     def get_data_from_get_countries_population_ranking(self):
         return  [( d["country"]["value"].split('/')[-1], d["ranking"]["value"]) for d in self.get_countries_population_ranking()["results"]["bindings"]]
 
       
-if __name__ == '__main__':
-    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-    s = SparqlQueries(sparql)
+#if __name__ == '__main__':
+    # sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+    # s = SparqlQueries(sparql)
     
-    #print(s.get_data_from_get_countries())
-    print(s.get_data_from_get_capitals_and_countries())
-    #print(s.get_data_from_get_countries_area())
-    #print(s.get_data_from_get_countries_wealth())
-    #print(s.get_data_from_get_countries_population_ranking())
+    # print(s.get_data_from_get_countries())
+    # print(s.get_data_from_get_capitals_and_countries())
+    # print(s.get_data_from_get_countries_area())
+    # print(s.get_data_from_get_countries_currency())
+    # print(s.get_data_from_get_countries_population_ranking())
