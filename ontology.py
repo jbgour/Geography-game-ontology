@@ -59,8 +59,6 @@ with onto:
 
 
 
-
-
     mary = Person(name='mary')
     cs600 = Course(name='cs600')
     alice = Person(name='alice')

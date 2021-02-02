@@ -2,12 +2,13 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import random
 import sys, os
 
+
 class OntologyModel:
 
     def __init__(self, queries):
         self.queries = queries
-        self.raw_data = get_sparql_data()
-        self.list_
+        self.raw_data = get_sparql_data() #run le fichier de Thibault
+
 
     def get_sparql_data(self):
         #run qparql queries
@@ -17,6 +18,8 @@ class OntologyModel:
         for c in self.raw_data["country"]:
             #create country object
         return list of countries
+
+
 
     ...
 
