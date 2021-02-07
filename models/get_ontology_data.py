@@ -1,74 +1,85 @@
 
 from SPARQLWrapper import SPARQLWrapper, JSON
+from ontology_model import OntologyModel
 import os, sys
 import random
 
 class GetOntologyData:
 
-    def __init__(self):
-        pass
+    def __init__(self, individuals):
+        #individual are taken from attribute individuals of Ontology model
+        #individuals is a list of ontology object
+        self.individuals = individuals
 
     def get_random_country(self):
-        return random.choice(self.queries.get_data_from_get_countries())
+        return str(random.choice(self.individuals)).split('.')[-1].lower()
 
     def get_random_capital(self):
-        capitals = list(zip(*self.queries.get_data_from_get_capitals_and_countries()))
-        return random.choice(capitals[-1])
-
+        return str(random.choice(self.individuals).has_capital).split('.')[-1]
+        
     def get_capital(self, country):
-        country_capitals = self.queries.get_data_from_get_capitals_and_countries()
-        for coun, capital in country_capitals :
-            if country == coun:
-                return capital
+        for ind in self.individuals :
+            if ind.name.lower() == country.lower():
+                return str(ind.has_capital).split('.')[-1]
 
     def get_country(self, capital):
-        country_capitals = self.queries.get_data_from_get_capitals_and_countries()
-        for country, cap in country_capitals :
-            if capital == cap:
-                return country
+        for ind in self.individuals :
+            if str(ind.has_capital).split('.')[-1].lower() == capital.lower():
+                return str(ind).split('.')[-1].lower()
 
     def get_area(self, country):
-        country_area = self.queries.get_data_from_get_countries_area()
-        for c, area in country_area :
-            if country == c:
-                return area
+        for ind in self.individuals :
+            if ind.name.lower() == country.lower():
+                return int(str(ind.has_an_area_of).split('.')[-1].lower())
 
     def get_currency(self, country):
-        country_curr = self.queries.get_data_from_get_countries_currency()
-        print(country_curr)
-        for c, currency in country_curr :
-            if country == c:
-                return currency
+       for ind in self.individuals :
+            if ind.name.lower() == country.lower():
+                return str(ind.has_currency).split('.')[-1].lower()
 
     def get_pop_ranking(self, country):
-        country_pop = self.queries.get_data_from_get_countries_population_ranking()
-        for c, rank in country_pop :
-            if country == c:
-                return rank
+        for ind in self.individuals :
+            if ind.name.lower() == country.lower():
+                return str(ind.has_a_pop_ranking_of).split('.')[-1].lower()
 
     def get_non_capital(self, country, number):
-        if country == "Pologne":
-            return ["Paris", "Berlin", "Londres"]
+        counter, l = 0, []
+        while counter != number : 
+            capital = self.get_random_capital()
+            count = self.get_country(capital)
+            if count != country:
+                l.append(capital)
+                counter +=1
+        return l
 
     def get_non_country(self, capital, number):
-        if capital == "Varsovie":
-            return ["France", "Allemagne", "Royaume-Uni"]
+        counter, l = 0, []
+        while counter != number : 
+            country = self.get_random_country()
+            cap = self.get_capital(country)
+            if cap != capital:
+                l.append(cap)
+                counter +=1
+        return l    
         
         
 if __name__ == '__main__':
     
-    sys.path.insert(0, "../sparql")
-    from sparql import SparqlQueries
+    sys.path.insert(0, "../sparql_package")
+    from sparql_queries import SparqlQueries
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     s = SparqlQueries(sparql)
     onto = OntologyModel(s)
-
-    print(onto.get_random_country())
-    print(onto.get_random_capital())
-    print(onto.get_capital("France"))
-    print(onto.get_country("Paris"))
-    print(onto.get_area("France"))
-    # France is not in query of Currency
-    print(onto.get_currency("Belgium"))
-    print(onto.get_currency("France"))
-    print(onto.get_pop_ranking("France"))
+    l = onto.raw_data
+    individuals = onto.individuals
+    print(individuals)
+    data = GetOntologyData(individuals)
+    print(data.get_random_country())
+    print(data.get_random_capital())
+    print(data.get_capital("Togo"))
+    print(data.get_country("Jerusalem"))
+    print(data.get_area("Togo"))
+    print(data.get_currency("Togo"))
+    print(data.get_pop_ranking("Togo"))
+    print(data.get_non_capital("Jerusalem", 3))
+    print(data.get_non_country("Togo", 5))

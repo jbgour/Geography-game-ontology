@@ -33,19 +33,19 @@ with onto:
         pass
 
     class is_area_of(Area >> Country, FunctionalProperty):
-        pass
+        inverse_property = has_an_area_of
 
     class is_currency_of(Currency >> Country, FunctionalProperty):
         pass
 
     class has_currency(Country >> Currency, FunctionalProperty):
-        pass
+        inverse_property = is_currency_of
 
     class has_a_pop_ranking_of(Country >> PopRanking, FunctionalProperty):
         pass
 
     class is_pop_ranking_of(PopRanking >> Country, FunctionalProperty):
-        pass
+        inverse_property = has_a_pop_ranking_of
 
 
 class OntologyModel:
