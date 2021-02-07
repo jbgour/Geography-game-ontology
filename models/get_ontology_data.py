@@ -1,6 +1,6 @@
 
 from SPARQLWrapper import SPARQLWrapper, JSON
-from ontology_model import OntologyModel
+from models import *
 import os, sys
 import random
 

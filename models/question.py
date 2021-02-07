@@ -3,8 +3,8 @@ import random
 
 class Question:
 
-    def __init__(self, ontology_model, type):
-        self.ontology_model = ontology_model
+    def __init__(self, get_ontology_data, type):
+        self.get_ontology_data = get_ontology_data
         self.type = type
         self.difficulty = ""
         self.body = ""
@@ -14,48 +14,43 @@ class Question:
 
     def generate_question(self):
         if self.type == "capital_of_country":
-            # country = self.ontology_model.get_random_country()
-            country = "France"
-            # capital = self.ontology_model.get_capital(country)
-            capital = "Paris"
-            # false_capitals = self.ontology_model.get_non_capital(country, 3)
-            false_capitals = ["Varsovie", "Rome", "Madrid"]
+            country = self.get_ontology_data.get_random_country()
+            capital = self.get_ontology_data.get_capital(country)
+            false_capitals = self.get_ontology_data.get_non_capital(country, 3)
             self.body = "What is the capital city of " + str(country) + "?"
             self.answer = capital
             self.wrong_answers = false_capitals
 
         elif self.type == "country_of_capital":
-            capital = self.ontology_model.get_random_capital()
-            country = self.ontology_model.get_country(capital)
-            false_countries = self.ontology_model.get_non_country(capital, 3)
+            capital = self.get_ontology_data.get_random_capital()
+            country = self.get_ontology_data.get_country(capital)
+            false_countries = self.get_ontology_data.get_non_country(capital, 3)
             self.body = "From which contry is " + str(capital) + " the capital city of?"
             self.answer = country
             self.wrong_answers = false_countries
 
         elif self.type == 'area_of_country':
-            country = self.ontology_model.get_random_country()
-            area = self.ontology_model.get_capital(country)
-            #int
-            false_areas = self.ontology_model.get_non_currencies(country, 3)
-            # string
+            country = self.get_ontology_data.get_random_country()
+            area = self.get_ontology_data.get_area(country)
+            false_areas = self.get_ontology_data.get_non_currencies(country, 3)
             self.body = "What is the currency of " + str(country) + "?"
             self.answer = area
             self.wrong_answers = false_areas
 
         elif self.type == 'population_of_country':
-            country = self.ontology_model.get_random_country()
-            population = self.ontology_model.get_capital(country)
+            country = self.get_ontology_data.get_random_country()
+            population = self.get_ontology_data.get_capital(country)
             #int
-            false_populations = self.ontology_model.get_non_currencies(country, 3)
+            false_populations = self.get_ontology_data.get_non_currencies(country, 3)
             # string
             self.body = "What is the population of " + str(country) + "?"
             self.answer = population
             self.wrong_answers = false_populations
 
         elif self.type == 'currency_of_country':
-            country = self.ontology_model.get_random_country()
-            currency = self.ontology_model.get_capital(country)
-            false_currencies = self.ontology_model.get_non_currencies(country, 3)
+            country = self.get_ontology_data.get_random_country()
+            currency = self.get_ontology_data.get_capital(country)
+            false_currencies = self.get_ontology_data.get_non_currencies(country, 3)
             self.body = "What is the currency of " + str(country) + "?"
             self.answer = currency
             self.wrong_answers = false_currencies
