@@ -1,5 +1,7 @@
+import re
 from .question import Question
 import random as rd
+import unidecode
 
 
 class GameSession:
@@ -50,16 +52,18 @@ class GameSession:
         :param given_answer: str, anwer provided by player
         :param question_type: str in ["duo", "carre", "cash"]
         """
-        if self.current_question.type in ['capital_of_country', 'country_of_capital','currency_of_country']:
-            if self.current_question.answer.lower() == given_answer.lower():
+        if self.current_question.type in ['capital_of_country', 'country_of_capital', 'currency_of_country']:
+            correct_answer = re.sub(r'[\W_]', ' ', unidecode.unidecode(self.current_question.answer.lower()))
+            given_answer = re.sub(r'[\W_]', ' ', unidecode.unidecode(given_answer.lower()))
+            print(correct_answer)
+            print(given_answer)
+            if correct_answer == given_answer:
                 self.current_question.is_correct = True
             else:
                 self.current_question.is_correct = False
 
         if self.current_question.type in ['area_of_country', 'population_of_country']:
-            print(type(self.current_question.answer))
-            print(self.current_question.answer)
-            if 0.9*int(self.current_question.answer) < int(given_answer) < 1.1*int(self.current_question.answer):
+            if 0.9 * int(self.current_question.answer) < int(given_answer) < 1.1 * int(self.current_question.answer):
                 self.current_question.is_correct = True
             else:
                 self.current_question.is_correct = False

@@ -58,7 +58,7 @@ class GetOntologyData:
             country = self.get_random_country()
             cap = self.get_capital(country)
             if cap != capital:
-                l.append(cap)
+                l.append(country)
                 counter +=1
         return l    
         
@@ -72,12 +72,13 @@ class GetOntologyData:
                 counter +=1
         return l  
     
-    def get_non_area(self, area, number):
+    def get_non_area(self, country, number):
+        b = self.get_area(country)
         counter, l = 0, []
         while counter != number : 
             country = self.get_random_country()
             a = self.get_area(country)
-            if float(a) != float(area):
+            if float(a) != float(b):
                 l.append(a)
                 counter +=1
         return l  

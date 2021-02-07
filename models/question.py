@@ -25,7 +25,7 @@ class Question:
             capital = self.get_ontology_data.get_random_capital()
             country = self.get_ontology_data.get_country(capital)
             false_countries = self.get_ontology_data.get_non_country(capital, 3)
-            self.body = "From which contry is " + str(capital) + " the capital city of?"
+            self.body = "From which country is " + str(capital) + " the capital city of?"
             self.answer = country
             self.wrong_answers = false_countries
 
@@ -33,7 +33,7 @@ class Question:
             country = self.get_ontology_data.get_random_country()
             area = self.get_ontology_data.get_area(country)
             false_areas = self.get_ontology_data.get_non_area(country, 3)
-            self.body = "What is the currency of " + str(country) + "?"
+            self.body = "What is the area in sqm of " + str(country) + "?"
             self.answer = area
             self.wrong_answers = false_areas
 
@@ -43,7 +43,7 @@ class Question:
             #int
             false_populations = self.get_ontology_data.get_non_pop_ranking(country, 3)
             # string
-            self.body = "What is the population of " + str(country) + "?"
+            self.body = "What is the population rank of " + str(country) + "?"
             self.answer = population
             self.wrong_answers = false_populations
 
@@ -59,19 +59,9 @@ class Question:
     def get_answers_to_display(self, number):
         display_list = []
         if number == 2:
-            r = random.randint(1, 2)
-            if r == 1:
-                display_list = [self.answer, self.wrong_answers[0]]
-            else:
-                display_list = [self.wrong_answers[0], self.wrong_answers[0]]
+            display_list = [self.answer, self.wrong_answers[0]]
         if number == 4:
-            r = random.randint(1, 4)
-            if r == 1:
-                display_list = [self.answer, self.wrong_answers[0], self.wrong_answers[1], self.wrong_answers[2]]
-            elif r == 2:
-                display_list = [self.wrong_answers[0], self.answer, self.wrong_answers[1], self.wrong_answers[2]]
-            elif r == 3:
-                display_list = [self.wrong_answers[0], self.wrong_answers[1], self.answer, self.wrong_answers[2]]
-            elif r == 4:
-                display_list = [self.wrong_answers[0], self.wrong_answers[1], self.wrong_answers[2], self.answer]
+            display_list = [self.answer, self.wrong_answers[0], self.wrong_answers[1], self.wrong_answers[2]]
+        random.shuffle(display_list)
         return display_list
+
