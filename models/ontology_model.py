@@ -2,6 +2,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import random
 import sys, os
 
+
 class OntologyModel:
 
     def __init__(self, queries):
