@@ -32,16 +32,16 @@ class Question:
         elif self.type == 'area_of_country':
             country = self.get_ontology_data.get_random_country()
             area = self.get_ontology_data.get_area(country)
-            false_areas = self.get_ontology_data.get_non_currencies(country, 3)
+            false_areas = self.get_ontology_data.get_non_area(country, 3)
             self.body = "What is the currency of " + str(country) + "?"
             self.answer = area
             self.wrong_answers = false_areas
 
         elif self.type == 'population_of_country':
             country = self.get_ontology_data.get_random_country()
-            population = self.get_ontology_data.get_capital(country)
+            population = self.get_ontology_data.get_pop_ranking(country)
             #int
-            false_populations = self.get_ontology_data.get_non_currencies(country, 3)
+            false_populations = self.get_ontology_data.get_non_pop_ranking(country, 3)
             # string
             self.body = "What is the population of " + str(country) + "?"
             self.answer = population
@@ -49,8 +49,8 @@ class Question:
 
         elif self.type == 'currency_of_country':
             country = self.get_ontology_data.get_random_country()
-            currency = self.get_ontology_data.get_capital(country)
-            false_currencies = self.get_ontology_data.get_non_currencies(country, 3)
+            currency = self.get_ontology_data.get_currency(country)
+            false_currencies = self.get_ontology_data.get_non_currency(country, 3)
             self.body = "What is the currency of " + str(country) + "?"
             self.answer = currency
             self.wrong_answers = false_currencies
@@ -63,7 +63,7 @@ class Question:
             if r == 1:
                 display_list = [self.answer, self.wrong_answers[0]]
             else:
-                display_list = [self.answer, self.wrong_answers[0]]
+                display_list = [self.wrong_answers[0], self.wrong_answers[0]]
         if number == 4:
             r = random.randint(1, 4)
             if r == 1:

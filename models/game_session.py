@@ -57,7 +57,9 @@ class GameSession:
                 self.current_question.is_correct = False
 
         if self.current_question.type in ['area_of_country', 'population_of_country']:
-            if 0.9*self.current_question.answer < given_answer < 1.1*self.current_question.answer:
+            print(type(self.current_question.answer))
+            print(self.current_question.answer)
+            if 0.9*int(self.current_question.answer) < int(given_answer) < 1.1*int(self.current_question.answer):
                 self.current_question.is_correct = True
             else:
                 self.current_question.is_correct = False
