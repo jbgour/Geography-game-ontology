@@ -1,6 +1,6 @@
 class Player:
 
-    def __init__(self, pseudo):
+    def __init__(self, pseudo=None):
         """
         :param pseudo: str, name of the player
         """

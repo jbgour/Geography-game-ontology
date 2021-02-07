@@ -1,7 +1,9 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import random
 import sys, os
+from owlready2 import *
 
+onto = get_ontology('http://geography-ontology.org')
 
 class OntologyModel:
 
@@ -25,7 +27,7 @@ class OntologyModel:
                 
     def get_sparql_data(self):
         #first is country, then countries + capital / country + area / coutnry + currency / country + pop ranking
-        return [self.queries.get_data_from_get_countries(), self.queries.get_data_from_get_capitals_and_countries(), self.queries.get_data_from_get_countries_area(), self.queries.get_data_from_get_countries_currency(), s.get_data_from_get_countries_population_ranking()]
+        return [self.queries.get_data_from_get_countries(), self.queries.get_data_from_get_capitals_and_countries(), self.queries.get_data_from_get_countries_area(), self.queries.get_data_from_get_countries_currency(), self.queries.get_data_from_get_countries_population_ranking()]
 
 
     def create_onto_individuals(self):

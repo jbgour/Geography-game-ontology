@@ -8,6 +8,7 @@ app.debug = True
 sparql = SPARQLWrapper("http://dbpedia.org/sparql")
 sq = SparqlQueries(sparql)
 ontology_model = OntologyModel(sq)
+player = Player()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -16,8 +17,7 @@ def login():
         req = request.form
 
         pseudo = req.get("pseudo")
-        global player
-        player = Player(pseudo)
+        player.pseudo = pseudo
 
         return redirect(url_for('home'))
 
@@ -126,7 +126,7 @@ def get_answer():
     if game_session.current_question.is_correct:
         return render_template(
             'answer.html',
-            body = 'Congrats' + player.pseudo + ', correct answer was indeed:',
+            body = 'Congrats ' + player.pseudo + ', correct answer was indeed:',
             correct_answer = game_session.current_question.answer,
             score = game_session.score,
             number=game_session.questions_answered,
@@ -134,7 +134,7 @@ def get_answer():
     else:
         return render_template(
             'answer.html',
-            body='Sorry' + player.pseudo + ', correct answer was :',
+            body='Sorry ' + player.pseudo + ', correct answer was :',
             correct_answer=game_session.current_question.answer,
             score=game_session.score,
             number=game_session.questions_answered,
