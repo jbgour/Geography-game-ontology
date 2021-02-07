@@ -1,5 +1,5 @@
 
-# Geography game with ontology
+# Geography game with ontology and open source data
 
 Game on geography for students, flask web app
 OWL reasoning
