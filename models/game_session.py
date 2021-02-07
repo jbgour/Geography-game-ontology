@@ -3,7 +3,6 @@ from .question import Question
 import random as rd
 import unidecode
 
-
 class GameSession:
 
     def __init__(self, player, get_ontology_data):
