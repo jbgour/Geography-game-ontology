@@ -5,11 +5,13 @@ from SPARQLWrapper import SPARQLWrapper
 app = Flask(__name__)
 
 app.debug = True
-sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-sq = SparqlQueries(sparql)
-ontology_model = OntologyModel(sq)
 player = Player()
 
+sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+s = SparqlQueries(sparql)
+onto = OntologyModel(s)
+individuals = onto.individuals
+get_ontology_data = GetOntologyData(individuals)
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -31,7 +33,7 @@ def home():
     pseudo = player.pseudo
     if request.method == "POST":
         global game_session
-        game_session = GameSession(player, ontology_model)
+        game_session = GameSession(player, get_ontology_data)
         game_session.update()
         return redirect(url_for('get_question'))
     return render_template(

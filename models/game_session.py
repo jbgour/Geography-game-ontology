@@ -4,12 +4,12 @@ import random as rd
 
 class GameSession:
 
-    def __init__(self, player, ontology_model):
+    def __init__(self, player, get_ontology_data):
         """
         :param player: str, Player Object
         """
         self.player = player
-        self.ontology_model = ontology_model
+        self.get_ontology_data = get_ontology_data
         self.score = 0
         self.questions_answered = 0
         self.questions_to_answer = 10
@@ -30,17 +30,17 @@ class GameSession:
         self.questions_to_answer -= 1
 
     def update_question(self):
-        random_number = rd.randint(1, 1)
+        random_number = rd.randint(1, 5)
         if random_number == 1:
-            question = Question(self.ontology_model, "capital_of_country")
+            question = Question(self.get_ontology_data, "capital_of_country")
         elif random_number == 2:
-            question = Question(self.ontology_model, "country_of_capital")
+            question = Question(self.get_ontology_data, "country_of_capital")
         elif random_number == 3:
-            question = Question(self.ontology_model, "area_of_country")
+            question = Question(self.get_ontology_data, "area_of_country")
         elif random_number == 4:
-            question = Question(self.ontology_model, "population_of_country")
+            question = Question(self.get_ontology_data, "population_of_country")
         elif random_number == 5:
-            question = Question(self.ontology_model, "currency_of_country")
+            question = Question(self.get_ontology_data, "currency_of_country")
         question.generate_question()
         self.current_question = question
 
@@ -57,7 +57,9 @@ class GameSession:
                 self.current_question.is_correct = False
 
         if self.current_question.type in ['area_of_country', 'population_of_country']:
-            if 0.9*self.current_question.answer < given_answer < 1.1*self.current_question.answer:
+            print(type(self.current_question.answer))
+            print(self.current_question.answer)
+            if 0.9*int(self.current_question.answer) < int(given_answer) < 1.1*int(self.current_question.answer):
                 self.current_question.is_correct = True
             else:
                 self.current_question.is_correct = False
