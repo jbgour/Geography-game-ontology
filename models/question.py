@@ -21,7 +21,7 @@ class Question:
         effectively generate the body, the answer ann some wrong answers of the question
         """
         if self.type == "capital_of_country":
-            country = re.sub(r'[\W_]', ' ', self.get_ontology_data.get_random_country())
+            country = self.get_ontology_data.get_random_country()
             capital = self.get_ontology_data.get_capital(country)
             false_capitals = self.get_ontology_data.get_non_capital(country, 3)
             self.body = "What is the capital city of " + str(country) + "?"

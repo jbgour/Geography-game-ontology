@@ -1,5 +1,4 @@
 flask
-pandas
 owlready2
 SPARQLWrapper
 unidecode
