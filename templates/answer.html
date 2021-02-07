@@ -1,0 +1,18 @@
+{% block content %}
+    <div class="container">
+        <h1>Question {{ number }}/10</h1>
+        <h2>{{ body }}</h2>
+        <h2>{{ correct_answer }}</h2>
+        <br>
+        <h2> Your score is {{ score }}</h2>
+
+
+
+    </div>
+{% endblock %}
+
+<form action="/question/answer" method="POST">
+
+    <input type="submit" name="question_button" value="Continue">
+
+</form>

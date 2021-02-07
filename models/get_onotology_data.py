@@ -1,10 +1,9 @@
+import random
 
 class GetOntologyData:
 
     def __init__(self, ontology_model):
-        self.ontology = ontology_model
-        pass
-
+        self.ontology_model = ontology_model
 
     def get_random_country(self):
         return random.choice(self.queries.get_data_from_get_countries())

@@ -1,0 +1,11 @@
+{% block content %}
+    <div class="container">
+        <h1>Congrats {{ pseudo }}, here is your score: {{ score }}</h1>
+    </div>
+{% endblock %}
+
+
+
+<form action="/end" method="POST">
+    <input type="submit" name="start_button" value="Play again">
+</form>
