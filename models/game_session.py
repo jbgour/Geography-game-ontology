@@ -1,6 +1,6 @@
 from .question import Question
 import random as rd
-import time
+
 
 class GameSession:
 
@@ -48,7 +48,7 @@ class GameSession:
         if self.current_question.answer.lower() == given_answer.lower():
             if self.current_question.difficulty == "duo":
                 self.score += 1
-            elif self.current_question.difficulty  == "carre":
+            elif self.current_question.difficulty == "carre":
                 self.score += 3
             else:
                 self.score += 5

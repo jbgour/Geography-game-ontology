@@ -1,10 +1,7 @@
-# app.py (1/3)
-
 from flask import Flask, render_template, request, redirect, url_for
 from models import *
 from sparql_package import *
 from SPARQLWrapper import SPARQLWrapper
-import time
 app = Flask(__name__)
 
 app.debug = True
@@ -15,8 +12,6 @@ ontology_model = OntologyModel(sq)
 
 @app.route("/", methods=["GET", "POST"])
 def login():
-    ## login page
-
     if request.method == "POST":
         req = request.form
 
@@ -33,7 +28,6 @@ def login():
 
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    ## home page
     pseudo = player.pseudo
     if request.method == "POST":
         global game_session

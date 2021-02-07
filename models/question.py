@@ -19,16 +19,17 @@ class Question:
             capital = "Paris"
             # false_capitals = self.ontology_model.get_non_capital(country, 3)
             false_capitals = ["Varsovie", "Rome", "Madrid"]
-            self.body = "Quelle est la capitale  de " + str(country) + "?"
+            self.body = "What is the capital city of " + str(country) + "?"
             self.answer = capital
             self.wrong_answers = false_capitals
         elif self.type == "country_of_capital":
             capital = self.ontology_model.get_random_capital()
             country = self.ontology_model.get_country(capital)
             false_countries = self.ontology_model.get_non_country(capital, 3)
-            self.body = "De quel pays La ville de " + str(capital) + " est-elle la capitale?"
+            self.body = "From which contry is " + str(capital) + " the capital city of?"
             self.answer = country
             self.wrong_answers = false_countries
+
 
     def get_answers_to_display(self, number):
         display_list = []
