@@ -14,7 +14,7 @@ class SparqlQueries :
         where { 
             ?country a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> .
             ?country rdfs:label ?countrylabel .
-            FILTER ( lang(?countrylabel) = 'fr')
+            FILTER ( lang(?countrylabel) = 'en')
         }
         """)
         self.sparql.setReturnFormat(JSON)
@@ -31,7 +31,6 @@ class SparqlQueries :
             ?country dbp:capital ?capital.
             } """)
         self.sparql.setReturnFormat(JSON)
-        print(self.sparql.query().convert())
         return self.sparql.query().convert()
     
     def get_countries_area(self) :
