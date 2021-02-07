@@ -4,6 +4,10 @@ import random
 class Question:
 
     def __init__(self, get_ontology_data, type):
+        """
+        :param get_ontology_data: ontology getter
+        :param type: type of question in ["duo", "carre", "cash"]
+        """
         self.get_ontology_data = get_ontology_data
         self.type = type
         self.difficulty = ""
@@ -13,8 +17,11 @@ class Question:
         self.is_correct = False
 
     def generate_question(self):
+        """
+        effectively generate the body, the answer ann some wrong answers of the question
+        """
         if self.type == "capital_of_country":
-            country = self.get_ontology_data.get_random_country()
+            country = re.sub(r'[\W_]', ' ', self.get_ontology_data.get_random_country())
             capital = self.get_ontology_data.get_capital(country)
             false_capitals = self.get_ontology_data.get_non_capital(country, 3)
             self.body = "What is the capital city of " + str(country) + "?"
@@ -40,7 +47,7 @@ class Question:
         elif self.type == 'population_of_country':
             country = self.get_ontology_data.get_random_country()
             population = self.get_ontology_data.get_pop_ranking(country)
-            #int
+            # int
             false_populations = self.get_ontology_data.get_non_pop_ranking(country, 3)
             # string
             self.body = "What is the population rank of " + str(country) + "?"
@@ -57,6 +64,11 @@ class Question:
             pass
 
     def get_answers_to_display(self, number):
+        """
+        suffle the answers displayed
+        :param number: 2 or 4, depending on the number of answers we display
+        :return:
+        """
         display_list = []
         if number == 2:
             display_list = [self.answer, self.wrong_answers[0]]
@@ -64,4 +76,3 @@ class Question:
             display_list = [self.answer, self.wrong_answers[0], self.wrong_answers[1], self.wrong_answers[2]]
         random.shuffle(display_list)
         return display_list
-

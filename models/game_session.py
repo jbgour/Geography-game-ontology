@@ -3,6 +3,7 @@ from .question import Question
 import random as rd
 import unidecode
 
+
 class GameSession:
 
     def __init__(self, player, get_ontology_data):
@@ -17,6 +18,9 @@ class GameSession:
         self.current_question = None
 
     def update(self):
+        """
+        update the current question and the counter
+        """
         self.update_question()
         self.update_questions_count()
 
@@ -31,6 +35,10 @@ class GameSession:
         self.questions_to_answer -= 1
 
     def update_question(self):
+        """
+        update the current question
+        randomly choose a type of question
+        """
         random_number = rd.randint(1, 5)
         if random_number == 1:
             question = Question(self.get_ontology_data, "capital_of_country")
@@ -47,9 +55,8 @@ class GameSession:
 
     def update_score(self, given_answer):
         """
-        each time a question is answerd, update the score
+        each time a question is answerd,check if correct and update the score
         :param given_answer: str, anwer provided by player
-        :param question_type: str in ["duo", "carre", "cash"]
         """
         if self.current_question.type in ['capital_of_country', 'country_of_capital', 'currency_of_country']:
             correct_answer = re.sub(r'[\W_]', ' ', unidecode.unidecode(self.current_question.answer.lower()))
@@ -62,9 +69,13 @@ class GameSession:
                 self.current_question.is_correct = False
 
         if self.current_question.type in ['area_of_country', 'population_of_country']:
-            if 0.9 * int(self.current_question.answer) < int(given_answer) < 1.1 * int(self.current_question.answer):
-                self.current_question.is_correct = True
-            else:
+            try:
+                if 0.9 * int(self.current_question.answer) < int(given_answer) < 1.1 * int(
+                        self.current_question.answer):
+                    self.current_question.is_correct = True
+                else:
+                    self.current_question.is_correct = False
+            except:
                 self.current_question.is_correct = False
 
         if self.current_question.is_correct:

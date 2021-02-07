@@ -2,16 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from models import *
 from sparql_package import *
 from SPARQLWrapper import SPARQLWrapper
+
 app = Flask(__name__)
 
 app.debug = True
 player = Player()
 
 sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-s = SparqlQueries(sparql)
-onto = OntologyModel(s)
-individuals = onto.individuals
-get_ontology_data = GetOntologyData(individuals)
+
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -22,7 +20,12 @@ def login():
         player.pseudo = pseudo
 
         return redirect(url_for('home'))
-
+    else:
+        global get_ontology_data
+        s = SparqlQueries(sparql)
+        onto = OntologyModel(s)
+        individuals = onto.individuals
+        get_ontology_data = GetOntologyData(individuals)
     return render_template(
         'login.html',
     )
@@ -97,10 +100,10 @@ def get_question_carre():
         'question_carre.html',
         number=game_session.questions_answered,
         question_body=question_carre.body,
-        answer_1 = answer_list[0],
-        answer_2 = answer_list[1],
-        answer_3 = answer_list[2],
-        answer_4 = answer_list[3]
+        answer_1=answer_list[0],
+        answer_2=answer_list[1],
+        answer_3=answer_list[2],
+        answer_4=answer_list[3]
     )
 
 
@@ -120,6 +123,7 @@ def get_question_cash():
         question_body=question_cash.body
     )
 
+
 @app.route("/question/answer", methods=["GET", "POST"])
 def get_answer():
     if request.method == "POST":
@@ -128,9 +132,9 @@ def get_answer():
     if game_session.current_question.is_correct:
         return render_template(
             'answer.html',
-            body = 'Congrats ' + player.pseudo + ', correct answer was indeed:',
-            correct_answer = game_session.current_question.answer,
-            score = game_session.score,
+            body='Congrats ' + player.pseudo + ', correct answer was indeed:',
+            correct_answer=game_session.current_question.answer,
+            score=game_session.score,
             number=game_session.questions_answered,
         )
     else:
@@ -146,12 +150,14 @@ def get_answer():
 @app.route("/end", methods=["GET", "POST"])
 def get_end_page():
     if request.method == "POST":
+        global game_session
+        del game_session
         return redirect(url_for('home'))
     return render_template(
-            'end.html',
-            pseudo = player.pseudo,
-            score=game_session.score,
-        )
+        'end.html',
+        pseudo=player.pseudo,
+        score=game_session.score,
+    )
 
 
 if __name__ == "__main__":
