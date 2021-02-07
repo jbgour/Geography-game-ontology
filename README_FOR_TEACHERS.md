@@ -12,7 +12,7 @@ application. Le point d'entrée de DBPEDIA a donc été privillégié.
 
 # Comment jouer au jeu?
 
-en local: instructions pour lancer l'app flask dans le fichier *README.md*
+en local: instructions pour lancer l'app flask dans le fichier *README.md* \
 en ligne: version déployée accessible à cette adresse: http://51.255.166.35:5000/ , il est possible que les temps de
 latence soient plus longs, sur cette version.
 
