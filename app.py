@@ -69,8 +69,7 @@ def get_question_duo():
         req = request.form
         given_answer = req.get("answer")
         game_session.update_score(given_answer)
-        game_session.update()
-        return redirect(url_for('get_question'))
+        return redirect(url_for('get_answer'))
 
     return render_template(
         'question_duo.html',
@@ -90,8 +89,7 @@ def get_question_carre():
         req = request.form
         given_answer = req.get("answer")
         game_session.update_score(given_answer)
-        game_session.update()
-        return redirect(url_for('get_question'))
+        return redirect(url_for('get_answer'))
 
     return render_template(
         'question_carre.html',
@@ -112,8 +110,7 @@ def get_question_cash():
         req = request.form
         given_answer = req.get("answer")
         game_session.update_score(given_answer)
-        game_session.update()
-        return redirect(url_for('get_question'))
+        return redirect(url_for('get_answer'))
 
     return render_template(
         'question_cash.html',
@@ -121,6 +118,27 @@ def get_question_cash():
         question_body=question_cash.body
     )
 
+@app.route("/question/answer", methods=["GET", "POST"])
+def get_answer():
+    if request.method == "POST":
+        game_session.update()
+        return redirect(url_for('get_question'))
+    if game_session.current_question.is_correct:
+        return render_template(
+            'answer.html',
+            body = 'Congrats' + player.pseudo + ', correct answer was indeed:',
+            correct_answer = game_session.current_question.answer,
+            score = game_session.score,
+            number=game_session.questions_answered,
+        )
+    else:
+        return render_template(
+            'answer.html',
+            body='Sorry' + player.pseudo + ', correct answer was :',
+            correct_answer=game_session.current_question.answer,
+            score=game_session.score,
+            number=game_session.questions_answered,
+        )
 
 
 @app.route("/end", methods=["GET", "POST"])

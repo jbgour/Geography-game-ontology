@@ -41,16 +41,19 @@ class GameSession:
     def update_score(self, given_answer):
         """
         each time a question is answerd, update the score
-        :param answer:
-        :param correct_answer:
+        :param given_answer: str, anwer provided by player
         :param question_type: str in ["duo", "carre", "cash"]
         """
         if self.current_question.answer.lower() == given_answer.lower():
+            self.current_question.is_correct = True
             if self.current_question.difficulty == "duo":
                 self.score += 1
             elif self.current_question.difficulty == "carre":
                 self.score += 3
             else:
                 self.score += 5
+
         else:
+            self.current_question.is_correct = False
             self.score = self.score
+            return False

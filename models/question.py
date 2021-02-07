@@ -10,6 +10,7 @@ class Question:
         self.body = ""
         self.answer = ""
         self.wrong_answers = []
+        self.is_correct = False
 
     def generate_question(self):
         if self.type == "capital_of_country":
