@@ -62,7 +62,37 @@ class GetOntologyData:
                 counter +=1
         return l    
         
+    def get_non_currency(self, currency, number):
+        counter, l = 0, []
+        while counter != number : 
+            country = self.get_random_country()
+            curr = self.get_currency(country)
+            if curr != currency:
+                l.append(curr)
+                counter +=1
+        return l  
+    
+    def get_non_area(self, area, number):
+        counter, l = 0, []
+        while counter != number : 
+            country = self.get_random_country()
+            a = self.get_area(country)
+            if a != area:
+                l.append(a)
+                counter +=1
+        return l  
+    
+    def get_non_pop_ranking(self, pop_ranking, number):
+        counter, l = 0, []
+        while counter != number : 
+            country = self.get_random_country()
+            pop = self.get_pop_ranking(country)
+            if pop != pop_ranking:
+                l.append(pop)
+                counter +=1
+        return l  
         
+    
 if __name__ == '__main__':
     
     sys.path.insert(0, "../sparql_package")
@@ -83,3 +113,6 @@ if __name__ == '__main__':
     print(data.get_pop_ranking("Togo"))
     print(data.get_non_capital("Jerusalem", 3))
     print(data.get_non_country("Togo", 5))
+    print(data.get_non_currency("Euro", 5))
+    print(data.get_non_area("12",4))
+    print(data.get_non_pop_ranking("1",4))
