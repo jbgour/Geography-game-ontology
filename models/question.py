@@ -8,7 +8,7 @@ class Question:
         self.type = type
         self.difficulty = ""
         self.body = ""
-        self.answer = ""
+        self.answer = None
         self.wrong_answers = []
         self.is_correct = False
 
@@ -23,6 +23,7 @@ class Question:
             self.body = "What is the capital city of " + str(country) + "?"
             self.answer = capital
             self.wrong_answers = false_capitals
+
         elif self.type == "country_of_capital":
             capital = self.ontology_model.get_random_capital()
             country = self.ontology_model.get_country(capital)
@@ -31,6 +32,34 @@ class Question:
             self.answer = country
             self.wrong_answers = false_countries
 
+        elif self.type == 'area_of_country':
+            country = self.ontology_model.get_random_country()
+            area = self.ontology_model.get_capital(country)
+            #int
+            false_areas = self.ontology_model.get_non_currencies(country, 3)
+            # string
+            self.body = "What is the currency of " + str(country) + "?"
+            self.answer = area
+            self.wrong_answers = false_areas
+
+        elif self.type == 'population_of_country':
+            country = self.ontology_model.get_random_country()
+            population = self.ontology_model.get_capital(country)
+            #int
+            false_populations = self.ontology_model.get_non_currencies(country, 3)
+            # string
+            self.body = "What is the population of " + str(country) + "?"
+            self.answer = population
+            self.wrong_answers = false_populations
+
+        elif self.type == 'currency_of_country':
+            country = self.ontology_model.get_random_country()
+            currency = self.ontology_model.get_capital(country)
+            false_currencies = self.ontology_model.get_non_currencies(country, 3)
+            self.body = "What is the currency of " + str(country) + "?"
+            self.answer = currency
+            self.wrong_answers = false_currencies
+            pass
 
     def get_answers_to_display(self, number):
         display_list = []

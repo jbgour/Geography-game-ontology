@@ -35,6 +35,12 @@ class GameSession:
             question = Question(self.ontology_model, "capital_of_country")
         elif random_number == 2:
             question = Question(self.ontology_model, "country_of_capital")
+        elif random_number == 3:
+            question = Question(self.ontology_model, "area_of_country")
+        elif random_number == 4:
+            question = Question(self.ontology_model, "population_of_country")
+        elif random_number == 5:
+            question = Question(self.ontology_model, "currency_of_country")
         question.generate_question()
         self.current_question = question
 
@@ -44,8 +50,19 @@ class GameSession:
         :param given_answer: str, anwer provided by player
         :param question_type: str in ["duo", "carre", "cash"]
         """
-        if self.current_question.answer.lower() == given_answer.lower():
-            self.current_question.is_correct = True
+        if self.current_question.type in ['capital_of_country', 'country_of_capital','currency_of_country']:
+            if self.current_question.answer.lower() == given_answer.lower():
+                self.current_question.is_correct = True
+            else:
+                self.current_question.is_correct = False
+
+        if self.current_question.type in ['area_of_country', 'population_of_country']:
+            if 0.9*self.current_question.answer < given_answer < 1.1*self.current_question.answer:
+                self.current_question.is_correct = True
+            else:
+                self.current_question.is_correct = False
+
+        if self.current_question.is_correct:
             if self.current_question.difficulty == "duo":
                 self.score += 1
             elif self.current_question.difficulty == "carre":
@@ -54,6 +71,4 @@ class GameSession:
                 self.score += 5
 
         else:
-            self.current_question.is_correct = False
             self.score = self.score
-            return False
