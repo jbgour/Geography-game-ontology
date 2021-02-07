@@ -117,7 +117,7 @@ if __name__ == '__main__':
         print(ind.has_an_area_of)
         print(ind.has_currency)
         print(ind.has_a_pop_ranking_of)
-
+        print('\n\n')
     # print(onto.get_random_country())
     # print(onto.get_random_capital())
     # print(onto.get_capital("France"))

@@ -12,7 +12,7 @@ class GetOntologyData:
         self.individuals = individuals
 
     def get_random_country(self):
-        return str(random.choice(self.individuals)).split('.')[-1].lower()
+        return str(random.choice(self.individuals)).split('.')[-1]
 
     def get_random_capital(self):
         return str(random.choice(self.individuals).has_capital).split('.')[-1]
@@ -25,7 +25,7 @@ class GetOntologyData:
     def get_country(self, capital):
         for ind in self.individuals :
             if str(ind.has_capital).split('.')[-1].lower() == capital.lower():
-                return str(ind).split('.')[-1].lower()
+                return str(ind).split('.')[-1]
 
     def get_area(self, country):
         for ind in self.individuals :
@@ -35,12 +35,12 @@ class GetOntologyData:
     def get_currency(self, country):
        for ind in self.individuals :
             if ind.name.lower() == country.lower():
-                return str(ind.has_currency).split('.')[-1].lower()
+                return str(ind.has_currency).split('.')[-1]
 
     def get_pop_ranking(self, country):
         for ind in self.individuals :
             if ind.name.lower() == country.lower():
-                return str(ind.has_a_pop_ranking_of).split('.')[-1].lower()
+                return str(ind.has_a_pop_ranking_of).split('.')[-1]
 
     def get_non_capital(self, country, number):
         counter, l = 0, []
@@ -67,7 +67,7 @@ class GetOntologyData:
         while counter != number : 
             country = self.get_random_country()
             curr = self.get_currency(country)
-            if curr != currency:
+            if curr.lower() != currency.lower():
                 l.append(curr)
                 counter +=1
         return l  
@@ -77,7 +77,7 @@ class GetOntologyData:
         while counter != number : 
             country = self.get_random_country()
             a = self.get_area(country)
-            if a != area:
+            if float(a) != float(area):
                 l.append(a)
                 counter +=1
         return l  
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     onto = OntologyModel(s)
     l = onto.raw_data
     individuals = onto.individuals
-    print(individuals)
+    #print(individuals)
     data = GetOntologyData(individuals)
     print(data.get_random_country())
     print(data.get_random_capital())
