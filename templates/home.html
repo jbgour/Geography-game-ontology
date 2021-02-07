@@ -1,13 +1,19 @@
 {% block content %}
     <div class="container">
-        <h1>Hi {{ pseudo }}</h1>
+        <h1>Welcome {{ pseudo }}</h1>
         <h2>Rules:</h2>
-        <p>You'll have 10 questions, 3 choices: duo, carre, cash...</p>
+        <p>You will have to answer 10 questions. For each question, 3 options will be available: Duo, Carré, and Cash.</p>
+        <ul>
+            <li>Duo: 2 answers provided, 1 is correct. 1 point if correct</li>
+            <li>Carré: 4 answers provided, 1 is correct. 3 points if correct </li>
+            <li>Cash: no answer provided, you'll have to type it. 5 points if correct</li>
+        </ul>
+
     </div>
 {% endblock %}
 
 
 
 <form action="/home" method="POST">
-    <input type="submit" name="start_button" value="Démarrer">
+    <input type="submit" name="start_button" value="Start the game">
 </form>
